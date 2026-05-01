@@ -9,6 +9,23 @@ What is Dto meaning, how mapper logic work
 What is @ControllerAdvice and what is inside this
 Soring boot starter validation
 
+  @CreatedDate
+    private LocalDateTime createdAt;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    @LastModifiedBy
+    private String updatedBy;
+
+
+
+
+
+
 ShortCuts
 🔑 List members of a class : Ctrl + F12
 
