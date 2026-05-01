@@ -5,7 +5,7 @@ What is @Column(updatable = false) and what is inside this
 What is @Column(insertable = false) and what is inside this
 What is @Entity and what is inside this
 What is @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE}) and what is inside this
-
+What is Dto meaning, how mapper logic work
 
 
 ShortCuts
