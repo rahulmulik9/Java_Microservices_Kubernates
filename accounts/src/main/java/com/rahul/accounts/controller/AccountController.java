@@ -5,6 +5,7 @@ import com.rahul.accounts.dto.CustomerDto;
 import com.rahul.accounts.dto.ResponseDto;
 import com.rahul.accounts.service.IAccountsService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@AllArgsConstructor
 public class AccountController {
     private IAccountsService iAccountsService;
 
