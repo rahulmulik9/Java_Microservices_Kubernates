@@ -1,10 +1,13 @@
 package com.rahul.accounts.service.impl;
 
 import com.rahul.accounts.constants.AccountsConstants;
+import com.rahul.accounts.dto.AccountsDto;
 import com.rahul.accounts.dto.CustomerDto;
 import com.rahul.accounts.entity.Accounts;
 import com.rahul.accounts.entity.Customer;
 import com.rahul.accounts.exception.CustomerAlreadyExistsException;
+import com.rahul.accounts.exception.ResourceNotFoundException;
+import com.rahul.accounts.mapper.AccountsMapper;
 import com.rahul.accounts.mapper.CustomerMapper;
 import com.rahul.accounts.repository.AccountsRepository;
 import com.rahul.accounts.repository.CustomerRepository;
@@ -48,5 +51,19 @@ public class AccountsServiceImpl  implements IAccountsService {
         newAccount.setCreatedAt(LocalDateTime.now());
         newAccount.setCreatedBy("Anonymise");
         return newAccount;
+    }
+
+
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
+        );
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString())
+        );
+        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+        customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
+        return customerDto;
     }
 }
