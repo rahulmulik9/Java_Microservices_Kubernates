@@ -2,6 +2,7 @@ What is @SpringBootApplication and what is inside this
 What is @RestController and what is inside this
 What is @MappedSuperclass and what is inside this
 What is @Column(updatable = false) and what is inside this
+What is @Column(insertable = false) and what is inside this
 
 
 
