@@ -34,8 +34,10 @@ public class AccountsServiceImpl  implements IAccountsService {
             throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
                     +customerDto.getMobileNumber());
         }
+     /*This is now managed by AuditAwareImpl and annotation used in base class such as  @CreatedBy , @CreatedDate,   @LastModifiedDate,   @LastModifiedBy
+     No need to write this manually
         customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymise");
+        customer.setCreatedBy("Anonymise");*/
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
@@ -48,8 +50,11 @@ public class AccountsServiceImpl  implements IAccountsService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
+
+        /*This is now managed by AuditAwareImpl and annotation used in base class such as  @CreatedBy , @CreatedDate,   @LastModifiedDate,   @LastModifiedBy
+     No need to write this manually
         newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("Anonymise");
+        newAccount.setCreatedBy("Anonymise");*/
         return newAccount;
     }
 
