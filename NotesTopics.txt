@@ -1,0 +1,2 @@
+What is @SpringBootApplication and what is inside this
+What is @RestController and what is inside this
