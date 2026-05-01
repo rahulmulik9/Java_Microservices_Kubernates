@@ -1,9 +1,12 @@
 package com.rahul.accounts.controller;
 
+import com.rahul.accounts.dto.CustomerDto;
+import com.rahul.accounts.dto.ResponseDto;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -13,5 +16,13 @@ public class AccountController {
     @GetMapping("sayHello")
     public String sayHello(){
         return "Hello World";
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ResponseDto("OK", "Created"));
     }
 }
