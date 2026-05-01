@@ -5,6 +5,7 @@ import com.rahul.accounts.dto.CustomerDto;
 import com.rahul.accounts.dto.ResponseDto;
 import com.rahul.accounts.service.IAccountsService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
