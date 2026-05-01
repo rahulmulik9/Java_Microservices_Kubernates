@@ -1,5 +1,6 @@
 package com.rahul.accounts.controller;
 
+import com.rahul.accounts.constants.AccountsConstants;
 import com.rahul.accounts.dto.CustomerDto;
 import com.rahul.accounts.dto.ResponseDto;
 import jakarta.validation.Valid;
@@ -14,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     @GetMapping("sayHello")
-    public String sayHello(){
+    public String sayHello() {
         return "Hello World";
     }
 
-    @GetMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount() {
-
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
+        iAccountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto("OK", "Created"));
+                .body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
     }
 }

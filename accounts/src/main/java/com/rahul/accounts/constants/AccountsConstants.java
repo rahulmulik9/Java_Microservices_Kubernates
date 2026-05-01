@@ -1,4 +1,4 @@
-package com.eazybytes.accounts.constants;
+package com.rahul.accounts.constants;
 
 public final class AccountsConstants {
 
