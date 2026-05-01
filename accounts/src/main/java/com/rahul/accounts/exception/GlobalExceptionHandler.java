@@ -20,7 +20,7 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
-   //ResponseEntityExceptionHandler : When class extend this response validation exception can be handled here
+   //ResponseEntityExceptionHandler : When class extend this then when response validation exception occur that can be handled here in handleMethodArgumentNotValid.
 
     //VALIDATION DATA
     @Override
