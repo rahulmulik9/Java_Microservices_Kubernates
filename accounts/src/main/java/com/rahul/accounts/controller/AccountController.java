@@ -3,6 +3,7 @@ package com.rahul.accounts.controller;
 import com.rahul.accounts.constants.AccountsConstants;
 import com.rahul.accounts.dto.CustomerDto;
 import com.rahul.accounts.dto.ResponseDto;
+import com.rahul.accounts.service.IAccountsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class AccountController {
+    private IAccountsService iAccountsService;
+
 
     @GetMapping("sayHello")
     public String sayHello() {
