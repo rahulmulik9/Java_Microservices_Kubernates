@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     private IAccountsService iAccountsService;
 
-
     @GetMapping("sayHello")
     public String sayHello() {
         return "Hello World";
