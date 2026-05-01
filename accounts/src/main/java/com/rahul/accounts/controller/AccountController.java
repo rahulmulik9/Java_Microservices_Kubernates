@@ -18,8 +18,8 @@ public class AccountController {
         return "Hello World";
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
+    @GetMapping("/create")
+    public ResponseEntity<ResponseDto> createAccount() {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
