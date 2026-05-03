@@ -1,5 +1,5 @@
 #Start with a base image containing Java runtime
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:17-jdk
 
 # MAINTAINER instruction is deprecated in favor of using label
 # MAINTAINER eazybytes.com
