@@ -1,0 +1,8 @@
+.\mvnw.cmd clean package   : clean and build
+docker build -t accounts .  : Build image
+docker compose up -d : compose and run image in detach mode
+
+
+docker compose stop : stop docker microservices
+docker compose down : Delete docker image
+.\mvnw.cmd clean : Clean maven build
