@@ -43,8 +43,8 @@ public class AccountsController {
     }
 
     //Fetch the value of build.version from configuration files like application.yml
-    @Value("${build.version}")
-    private String buildVersion;
+//    @Value("${build.version}")
+//    private String buildVersion;
 
     @Autowired
     private Environment environment;
@@ -178,30 +178,12 @@ public class AccountsController {
         }
     }
 
-    @Operation(
-            summary = "Get Build information",
-            description = "Get Build information that is deployed into accounts microservice"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "HTTP Status OK"
-            ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "HTTP Status Internal Server Error",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
-            )
-    }
-    )
-    @GetMapping("/build-info")
-    public ResponseEntity<String> getBuildInfo() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(buildVersion);
-    }
+//    @GetMapping("/build-info")
+//    public ResponseEntity<String> getBuildInfo() {
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(buildVersion);
+//    }
 
     @GetMapping("/contact-info")
     public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
