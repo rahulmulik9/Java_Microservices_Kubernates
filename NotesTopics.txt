@@ -23,7 +23,7 @@ Soring boot starter validation
 
 
 
-
+Different way that we can access the profile like qa or production
 
 
 ShortCuts

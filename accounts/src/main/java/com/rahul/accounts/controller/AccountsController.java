@@ -1,11 +1,11 @@
-package com.rahul.cards.controller;
+package com.rahul.accounts.controller;
 
-import com.rahul.cards.constants.CardsConstants;
-import com.rahul.cards.dto.CardsContactInfoDto;
-import com.rahul.cards.dto.CardsDto;
-import com.rahul.cards.dto.ErrorResponseDto;
-import com.rahul.cards.dto.ResponseDto;
-import com.rahul.cards.service.ICardsService;
+import com.rahul.accounts.constants.AccountsConstants;
+import com.rahul.accounts.dto.AccountsContactInfoDto;
+import com.rahul.accounts.dto.CustomerDto;
+import com.rahul.accounts.dto.ErrorResponseDto;
+import com.rahul.accounts.dto.ResponseDto;
+import com.rahul.accounts.service.IAccountsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,21 +23,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Eazy Bytes
+ */
+
 @Tag(
-        name = "CRUD REST APIs for Cards in EazyBank",
-        description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE card details"
+        name = "CRUD REST APIs for Accounts in EazyBank",
+        description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE account details"
 )
 @RestController
-@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
-public class CardsController {
+public class AccountsController {
 
-    private ICardsService iCardsService;
+    private final IAccountsService iAccountsService;
 
-    public CardsController(ICardsService iCardsService) {
-        this.iCardsService = iCardsService;
+    public AccountsController(IAccountsService iAccountsService) {
+        this.iAccountsService = iAccountsService;
     }
 
+    //Fetch the value of build.version from configuration files like application.yml
     @Value("${build.version}")
     private String buildVersion;
 
@@ -45,11 +50,11 @@ public class CardsController {
     private Environment environment;
 
     @Autowired
-    private CardsContactInfoDto cardsContactInfoDto;
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     @Operation(
-            summary = "Create Card REST API",
-            description = "REST API to create new Card inside EazyBank"
+            summary = "Create Account REST API",
+            description = "REST API to create new Customer &  Account inside EazyBank"
     )
     @ApiResponses({
             @ApiResponse(
@@ -66,18 +71,16 @@ public class CardsController {
     }
     )
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createCard(@Valid @RequestParam
-                                                  @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                  String mobileNumber) {
-        iCardsService.createCard(mobileNumber);
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
+        iAccountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto(CardsConstants.STATUS_201, CardsConstants.MESSAGE_201));
+                .body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
     }
 
     @Operation(
-            summary = "Fetch Card Details REST API",
-            description = "REST API to fetch card details based on a mobile number"
+            summary = "Fetch Account Details REST API",
+            description = "REST API to fetch Customer &  Account details based on a mobile number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -91,18 +94,19 @@ public class CardsController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )
-    })
+    }
+    )
     @GetMapping("/fetch")
-    public ResponseEntity<CardsDto> fetchCardDetails(@RequestParam
-                                                     @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                     String mobileNumber) {
-        CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
-        return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
+    public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam
+                                                           @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+                                                           String mobileNumber) {
+        CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
     @Operation(
-            summary = "Update Card Details REST API",
-            description = "REST API to update card details based on a card number"
+            summary = "Update Account Details REST API",
+            description = "REST API to update Customer &  Account details based on a account number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -120,24 +124,25 @@ public class CardsController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )
-    })
+    }
+    )
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateCardDetails(@Valid @RequestBody CardsDto cardsDto) {
-        boolean isUpdated = iCardsService.updateCard(cardsDto);
+    public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
+        boolean isUpdated = iAccountsService.updateAccount(customerDto);
         if(isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
+                    .body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
         }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_UPDATE));
+                    .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_UPDATE));
         }
     }
 
     @Operation(
-            summary = "Delete Card Details REST API",
-            description = "REST API to delete Card details based on a mobile number"
+            summary = "Delete Account & Customer Details REST API",
+            description = "REST API to delete Customer &  Account details based on a mobile number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -155,23 +160,42 @@ public class CardsController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )
-    })
+    }
+    )
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteCardDetails(@RequestParam
-                                                         @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                         String mobileNumber) {
-        boolean isDeleted = iCardsService.deleteCard(mobileNumber);
+    public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam
+                                                            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+                                                            String mobileNumber) {
+        boolean isDeleted = iAccountsService.deleteAccount(mobileNumber);
         if(isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
+                    .body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
         }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
+                    .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
     }
 
+    @Operation(
+            summary = "Get Build information",
+            description = "Get Build information that is deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity
@@ -179,12 +203,12 @@ public class CardsController {
                 .body(buildVersion);
     }
 
-
     @GetMapping("/contact-info")
-    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(cardsContactInfoDto);
+                .body(accountsContactInfoDto);
     }
+
 
 }
