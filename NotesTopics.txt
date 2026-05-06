@@ -22,7 +22,7 @@ Soring boot starter validation
     private String updatedBy;
 
 
-
+What the ways to read the properties
 Different way that we can access the profile like qa or production
 
 
