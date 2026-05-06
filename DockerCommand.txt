@@ -1,5 +1,5 @@
 .\mvnw.cmd clean package   : clean and build
-docker build -t accounts .  : Build image
+docker build -t xxxx .  : Build image
 docker compose up -d : compose and run image in detach mode
 
 
