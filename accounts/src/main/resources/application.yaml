@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: "accounts"
@@ -26,8 +27,8 @@ spring:
     username: "guest"
     password: "guest"
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
+management:          # ← ROOT level, not under spring ✅
+  endpoints:
+    web:
+      exposure:
+        include: "*"

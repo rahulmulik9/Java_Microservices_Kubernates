@@ -26,6 +26,9 @@ Soring boot starter validation
 Actuator and Spring bus refresh video 87  abd 88 : When you change confi file while services are running then service doesnt detect changes
 but using actuator and rabbit mq we can refresh the properties without down the microservices
 
+spring-cloud-config-monitor
+In github where config is saved =>go to setting =?webhook =>add webhook
+hookdeck listen 8071 github-webhook --path /monitor
 
 Different way that we can access the profile like qa or production
 
