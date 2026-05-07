@@ -1,20 +1,32 @@
-spring:
+        spring:
   application:
     name: "configserver"
   profiles:
-    active: native
+    # active: native
+    active: git
   cloud:
     config:
       server:
-#         native:
-#         search-locations: "classpath:/config"
-#          search-locations: "file:///Users//Mulik//Documents//config"   # from local file system
+        # native:
+        # search-locations: "classpath:/config"
+        # aearch-locations: "file:///Users//Mulik//Documents//config"   # from local file system
         git:
-          uri: "https://github.com/rahulmulik9/Bank_Configuration.git"
+          uri: "https://github.com/eazybytes/eazybytes-config.git"
           default-label: main
           timeout: 5
           clone-on-start: true
           force-pull: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 server:
   port: 8071
 
