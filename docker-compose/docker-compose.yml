@@ -21,6 +21,9 @@ services:
     container_name: accounts-ms
     ports:
       - "8080:8080"
+    depends_on:
+      configserver:
+        condition: service_healthy    #this tell account service that start when healthy not when started
     deploy:
       resources:
         limits:
