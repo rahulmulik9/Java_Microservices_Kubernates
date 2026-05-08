@@ -11,14 +11,17 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
-    networks:
-      - eazybank
+    extends:  #network has been imported from common file  #earlier it was networks:  - eazybank
+      file: common-config.yml
+      service: network-deploy-service
+
+
   configserver:
     image: "eazybytes/configserver:s6"
     container_name: configserver-ms
     ports:
       - "8071:8071"
-    depends_on:
+    depends_on: # explicitly declared here — not inherited via extends (unreliable in newer Docker Compose)
       rabbit:
         condition: service_healthy
     healthcheck:
@@ -27,30 +30,40 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s    #tell that start after 10s
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
+    extends:  #belwo data are coming from common services deploy and network
+      file: common-config.yml
+      service: microservice-base-config
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700m
+#    networks:
+#      - eazybank
+
   accounts:
     image: "eazybytes/accounts:s6"
     container_name: accounts-ms
     ports:
       - "8080:8080"
-    depends_on:
+    depends_on: # explicitly declared here — not inherited via extends (unreliable in newer Docker Compose)
       configserver:
-        condition: service_healthy    #this tell account service that start when healthy not when started
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
     environment:
-      SPRING_CONFIG_IMPORT : "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE : default
       SPRING_APPLICATION_NAME: "accounts"
+#This info now taken from common config files
+#    depends_on:
+#      configserver:
+#        condition: service_healthy    #this tell account service that start when healthy not when started
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700m
+#    networks:
+#      - eazybank
+
   loans:
     image: "eazybytes/loans:s6"
     container_name: loans-ms
@@ -59,16 +72,12 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
       SPRING_APPLICATION_NAME: "loans"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
   cards:
     image: "eazybytes/cards:s6"
     container_name: cards-ms
@@ -77,16 +86,11 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
       SPRING_APPLICATION_NAME: "cards"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config"
 networks:
   eazybank:
     driver: "bridge"
