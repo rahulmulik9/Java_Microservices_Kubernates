@@ -11,7 +11,7 @@ spring:
         # search-locations: "classpath:/config"
         # aearch-locations: "file:///Users//Mulik//Documents//config"   # from local file system
         git:
-          uri: "https://github.com/eazybytes/eazybytes-config.git"
+          uri: "https://github.com/rahulmulik9/Bank_Configuration.git"
           default-label: main
           timeout: 5
           clone-on-start: true
