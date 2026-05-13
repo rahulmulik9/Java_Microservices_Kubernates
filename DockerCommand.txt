@@ -6,3 +6,11 @@ docker compose up -d : compose and run image in detach mode
 docker compose stop : stop docker microservices
 docker compose down : Delete docker image
 .\mvnw.cmd clean : Clean maven build
+
+
+
+
+docker run -p 3306:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql
+
+
+.\mvnw.cmd compile jib:dockerBuild
