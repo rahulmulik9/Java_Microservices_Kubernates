@@ -79,6 +79,10 @@
 #  eazybank:
 #    driver: "bridge"
 
+#ports :
+#    -3306:3307 # If you do not provide this at this stage, that is fine because the services can still communicate internally within the Docker network.
+#   However, if you want to access or test the service locally from your machine, you need to expose the ports.
+
 services:
   accountsdb:
     container_name: accountsdb
@@ -149,7 +153,7 @@ services:
       - "8090:8090"
     environment:
       SPRING_APPLICATION_NAME: "loans"
-      SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"  #contain are in own word so give 3306+ not 3307
     depends_on:
       loansdb:
         condition: service_healthy
