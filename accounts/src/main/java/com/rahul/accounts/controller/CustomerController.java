@@ -1,5 +1,7 @@
 package com.rahul.accounts.controller;
 import com.rahul.accounts.dto.CustomerDetailsDto;
+import com.rahul.accounts.dto.ErrorResponseDto;
+import com.rahul.accounts.service.ICustomersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,24 +33,13 @@ public class CustomerController {
         this.iCustomersService = iCustomersService;
     }
 
-    @Operation(
-            summary = "Fetch Customer Details REST API",
-            description = "REST API to fetch Customer details based on a mobile number"
-    )
+    @Operation(summary = "Fetch Customer Details REST API",
+            description = "REST API to fetch Customer details based on a mobile number")
     @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "HTTP Status OK"
-            ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "HTTP Status Internal Server Error",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
-            )
-    }
-    )
+            @ApiResponse(responseCode = "200", description = "HTTP Status OK"),
+            @ApiResponse(responseCode = "500", description = "HTTP Status Internal Server Error",
+                    content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+            )})
     @GetMapping("/fetchCustomerDetails")
     public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestParam
                                                                    @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
