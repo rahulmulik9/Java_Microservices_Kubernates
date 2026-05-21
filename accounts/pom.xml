@@ -141,7 +141,7 @@
                 <version>3.4.0</version>
                 <configuration>
                     <to>
-                        <image>eazybytes/accounts:s6</image>
+                        <image>eazybytes/accounts:s8</image>
                     </to>
                     <container>
                         <creationTime>USE_CURRENT_TIMESTAMP</creationTime>

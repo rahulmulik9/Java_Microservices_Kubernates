@@ -136,7 +136,7 @@
                 <version>3.4.0</version>
                 <configuration>
                     <to>
-                        <image>eazybytes/loans:s6</image>
+                        <image>eazybytes/loans:s8</image>
                     </to>
                     <container>
                         <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
