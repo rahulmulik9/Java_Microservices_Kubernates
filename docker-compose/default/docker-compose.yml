@@ -254,6 +254,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
 
+#mulitple micro-service of loan account
   loans1:
     image: "eazybytes/loans:s8"
     container_name: loans-ms1
