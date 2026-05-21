@@ -36,6 +36,7 @@ Different way that we can access the profile like qa or production
 ShortCuts
 🔑 List members of a class : Ctrl + F12
 
+STudy well
 
 
 
